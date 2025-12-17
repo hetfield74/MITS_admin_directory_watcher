@@ -12,6 +12,8 @@
  * --------------------------------------------------------------
  */
 
+defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.' );
+
 if (defined('DIR_ADMIN') && DIR_ADMIN !== 'admin') {
     $realAdminFolderName = trim(DIR_ADMIN, '/');
     $realAdminDir = DIR_FS_DOCUMENT_ROOT . $realAdminFolderName;
