@@ -114,7 +114,7 @@ if (defined('DIR_ADMIN') && DIR_ADMIN !== 'admin') {
 
           <div class="modal-body">
             <p>
-              Es wurde ein zusätzlicher Ordner
+              Es wurde ein zus&auml;tzlicher Ordner
               <span class="folder-badge folder-bad">
                   <svg class="folder-icon" viewBox="0 0 24 24">
                       <path d="M10 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-8l-2-2z" />
@@ -132,7 +132,7 @@ if (defined('DIR_ADMIN') && DIR_ADMIN !== 'admin') {
               lautet.
             </p>
             <p>
-              Das kann z.&nbsp;B. durch Modul- oder Update-Installationen passieren,
+              Das kann z.B. durch Modul- oder Update-Installationen passieren,
               bei denen Dateien in den Standard-Ordner
               <span class="folder-badge folder-norm">
                   <svg class="folder-icon" viewBox="0 0 24 24">
@@ -144,24 +144,24 @@ if (defined('DIR_ADMIN') && DIR_ADMIN !== 'admin') {
             </p>
             <div class="admin-hint-box">
               <strong>Hinweis:</strong><br>
-              Die Funktion <em>„Dateien verschieben“</em> verschiebt alle im Ordner
+              Die Funktion <em>&bdquo;Dateien verschieben&ldquo;</em> verschiebt alle im Ordner
               <code>admin/</code> vorhandenen Dateien und Unterordner automatisch
               in den konfigurierten Admin-Ordner.
               <br><br>
-              Dabei wird versucht, bestehende Dateien zu überschreiben.
+              Dabei wird versucht, bestehende Dateien zu &uuml;berschreiben.
               Je nach Server-Konfiguration, Dateirechten oder individuellen Anpassungen
               <strong>kann dies unerwartete Auswirkungen haben</strong>.
               <br><br>
               Die Nutzung erfolgt <strong>auf eigene Gefahr</strong>.
-              Eine <strong>manuelle Prüfung und Übernahme der Dateien</strong>
-              ist grundsätzlich vorzuziehen.
+              Eine <strong>manuelle Pr&uuml;fung und &Uuml;bernahme der Dateien</strong>
+              ist grunds&auml;tzlich vorzuziehen.
             </div>
           </div>
 
           <div class="modal-footer">
             <form method="post" style="margin:0;">
               <input type="hidden" name="move_files" value="1">
-              <button id="adminMoveFilesBtn" type="submit">
+              <button id="adminMoveFilesBtn" type="submit" data-confirm="1">
                 <svg class="btn-icon" viewBox="0 0 24 24">
                   <path d="M14 2H6a2 2 0 0 0-2 2v12l4-4h6a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2zm3 8v10H5v2h12a2 2 0 0 0 2-2V10h-2z" />
                 </svg>
@@ -189,8 +189,31 @@ if (defined('DIR_ADMIN') && DIR_ADMIN !== 'admin') {
         overlay.style.display = 'none';
       }
     }
-  </script>
 
+    (function () {
+      const btn = document.getElementById('adminMoveFilesBtn');
+      if (!btn) return;
+
+      btn.addEventListener('click', function (e) {
+        if (btn.dataset.confirmed === '1') {
+          return true;
+        }
+        e.preventDefault();
+
+        const msg =
+          "Bist du sicher?\n\n" +
+          "Dabei werden alle Dateien aus dem Ordner \"admin/\" automatisch\n" +
+          "in den konfigurierten Admin-Ordner verschoben.\n\n" +
+          "Die Nutzung erfolgt auf eigene Gefahr.\n" +
+          "Eine manuelle Pr\u00fcfung ist grunds\u00e4tzlich vorzuziehen.";
+
+        if (window.confirm(msg)) {
+          btn.dataset.confirmed = '1';
+          btn.click();
+        }
+      });
+    })();
+  </script>
   <style>
     :root {
       --primary: #66aa99;
