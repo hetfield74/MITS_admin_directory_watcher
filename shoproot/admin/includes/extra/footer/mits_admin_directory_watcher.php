@@ -181,10 +181,13 @@ if (defined('DIR_ADMIN') && DIR_ADMIN !== 'admin') {
     endif; ?>
 
   <script>
-    document.getElementById('adminWarningModalOverlay').style.display = 'block';
+    const adminWarningModalOverlay = document.getElementById('adminWarningModalOverlay');
+    if (adminWarningModalOverlay) {
+      adminWarningModalOverlay.style.display = 'block';
+    }
 
     function closeAdminWarning() {
-      var overlay = document.getElementById('adminWarningModalOverlay');
+      const overlay = document.getElementById('adminWarningModalOverlay');
       if (overlay) {
         overlay.style.display = 'none';
       }
